@@ -233,6 +233,11 @@ export default defineComponent({
     provide(apiSymbol, api);
     provide(mapTilesLoadedSymbol, mapTilesLoaded);
 
+    (Loader as any).instance = null;
+    if (loaderInstance) {
+      loaderInstance.deleteScript();
+    }
+
     const resolveOptions = (): google.maps.MapOptions => {
       const options: google.maps.MapOptions = { ...props };
       const keys = Object.keys(options) as (keyof google.maps.MapOptions)[];
